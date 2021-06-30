@@ -1,0 +1,50 @@
+<?php  
+include('includes/config.php');
+$id =$_POST['clear'];
+
+?>
+<!doctype html>
+<html>
+
+<head>
+    <title>LinknaMali</title>
+    <link href="img/black.png" rel="icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <form method="post" action="editlistingadmin2.php">
+        <div class="container mx-auto mt-5">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+
+                    <h6 class="text-center">Edit Listing Status</h6>
+
+
+                    <div>
+                
+                        <input type="hidden" name="id" value="<?php echo $id;?>">
+                    
+                        <div class="form-group col-md-12 col-lg-12 col-sm-12">
+                            <label>Listing Status</label>
+                            <select name="list_status" class="form-control">
+                                <option value="" disabled selected><em>Select Status</em></option>
+                                <option value="0">Inactive</option>
+                                <option value="1">Active</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <center><button class="btn btn-outline-primary btn-sm" name="edit" type="submit">Edit</button></center>
+
+                </div>
+            </div>
+        </div>
+
+    </form>
+ 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>

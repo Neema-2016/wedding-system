@@ -1,0 +1,45 @@
+<?php
+include "includes/config.php";
+if (isset($_POST['edit'])){
+    $status = $_POST['list_status'];
+    $id = $_POST['id'];
+     
+    if ($status == '1'){
+        $query1 = mysqli_query($conn,"UPDATE listings SET list_status ='1' WHERE list_id= '$id'");
+        if($query1){
+        
+         echo '<script type="text/javascript">'; 
+    echo 'alert("Listing Activated Succesfully.");'; 
+    echo 'window.location = "alllistings.php";';
+    echo '</script>';       
+}else{
+
+         echo '<script type="text/javascript">'; 
+    echo 'alert("An Error occured during Activation .");'; 
+    echo 'window.location = "alllistings.php";';
+    echo '</script>'; 
+}
+        
+    }elseif($status == '0'){
+        $query2 = mysqli_query($conn,"UPDATE listings SET list_status ='0' WHERE list_id= '$id'");
+        if($query2){
+        
+         echo '<script type="text/javascript">'; 
+    echo 'alert("Listing Deactivated Succesfully.");'; 
+    echo 'window.location = "alllistings.php";';
+    echo '</script>';       
+}else{
+    
+         echo '<script type="text/javascript">'; 
+    echo 'alert("An error occured Deactivation.");'; 
+    echo 'window.location = "alllistings.php";';
+    echo '</script>'; 
+}
+    }
+}else{
+    $error=mysqli_error($conn);
+       echo '<script type="text/javascript">'; 
+    echo 'alert("An error occured Deactivation: '."$error".'");'; 
+    echo 'window.location = "alllistings.php";';
+    echo '</script>'; 
+}
