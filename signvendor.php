@@ -3,15 +3,17 @@ session_start();
 include'include/config.php';
 if(isset($_POST['send'])){
 $confirm_err='';
-	$name=$_POST['vendor_name'];
+	$name=$_POST['user_name'];
 	$email=$_POST['vendor_email'];
-	$phone=$_POST['vendor_phone'];
-	$location=$_POST['vendor_location'];
-	$category=$_POST['vendor_category'];
+	//$category=$_POST['vendor_category'];
 	$password=$_POST['password'];
 	$confirmpassword=$_POST['password2'];
-	
-	
+//	$chk="";  
+//   foreach($category as $chk1)  
+//   {  
+//      $chk .= $chk1.",";  
+//   }  
+// 
 	//validate Email Adress
 	 if (empty($_POST["vendor_email"])) {
     $email_err = "Email is required";}
@@ -45,17 +47,17 @@ $confirm_err='';
 	
 	
 	//validate Vendor Name
-	if(empty(trim($_POST["vendor_name"]))){
+	if(empty(trim($_POST["user_name"]))){
         $username_err = "Please enter a Name.";
         
-    } elseif(strlen(trim($_POST["vendor_name"])) < 0){
+    } elseif(strlen(trim($_POST["user_name"])) < 0){
         $username_err = "Enter a valid Name.";
         
     }
 	 
     else{
         // 
-		$sql=mysqli_query($conn,"SELECT * FROM vendors WHERE vendor_name='$name'");
+		$sql=mysqli_query($conn,"SELECT * FROM users WHERE role='Vendor' AND user_name='$name'");
 		$numrows=mysqli_num_rows($sql);
        if($numrows > 0){
 		    $username_err = "A Vendor account is already registered under that Name.";
@@ -65,25 +67,22 @@ $confirm_err='';
                    
                 } 
            
-	//Validate phone number
-	$query=mysqli_query($conn,"SELECT * FROM users WHERE user_phone='$phone'");
-	if($query){
-		$num=mysqli_num_rows($query);
-		if($num > 0){
-			$phone_err="This phone number was previously used to register an account";
-		}
-	}
 	
-	if((empty($email_err))&&(empty($username_err))&&(empty($phone_err))&&(empty($password_err))){
+	
+	if(empty($email_err) && empty($username_err)){
 	 
 	
-	$sql=mysqli_query($conn,"INSERT INTO vendors (vendor_name,vendor_email,vendor_phone,vendor_location,vendor_category) VALUES('$name','$email','$phone','$location','$category')");
+	
 		
-		$sql2=mysqli_query($conn,"INSERT INTO users (user_name,user_email,user_phone,user_location,role,password)VALUES('$name','$email','$phone','$location','Vendor','$password')");
+		
+		$sql2=mysqli_query($conn,"INSERT INTO users (user_name,user_email,role,password)VALUES('$name','$email','Vendor','$password')");
+
 		
 
 
-	if($sql && $sql2){
+	if($sql2){
+		
+		
 		
 		/*
 $email_from = 'rigiggz98@gmail.com';   // sender address
@@ -99,7 +98,9 @@ $headers .= "Reply-To: $email \r\n";
 $y=mail($to,$email_subject,$email_body,$headers);*/
  echo '<script type="text/javascript">'; 
     echo 'alert("SignUp was succesful.");'; 
+    echo 'window.location = "login.php"';
     echo '</script>';
+		
 }else{
 		
             $error=mysqli_error($conn);
@@ -115,7 +116,7 @@ $y=mail($to,$email_subject,$email_body,$headers);*/
 	 else{
     
               echo '<script type="text/javascript">'; 
-    echo 'alert("An Error occured during submision: '."$email_err".' '."$username_err".' '."$phone_err".' '."$password_err".');'; 
+    echo 'alert("An Error occured during submision: '."$email_err".' '."$username_err".' ");'; 
     echo '</script>';       
 
     }
@@ -190,48 +191,52 @@ $y=mail($to,$email_subject,$email_body,$headers);*/
 			<!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
 			<nav id="navbar" class="navbar">
-				<ul>
+				<ul class="mr-auto">
 					<li><a class="nav-link" href="index.php">Home</a></li>
 					<li class="dropdown"><a href="#"><span>Vendors</span> <i class="bi bi-chevron-down"></i></a>
 						<ul>
-							<li><a href="#">DJs</a></li>
-							<li><a href="#">Bands</a>
+							<li><a href="vendor.php?id=DJs">DJs</a></li>
+							<li><a href="vendor.php?id=Bands">Bands</a>
 
-							<li><a href="#">Wedding Planners</a></li>
-							<li><a href="#">Florists</a></li>
-							<li class="dropdown"><a href="#"><span>Salons</span><i class="bi bi-chevron-right"></i></a>
+							<li><a href="vendor.php?id=Planners">Wedding Planners</a></li>
+							<li><a href="vendor.php?id=Florists">Florists</a></li>
+							<li class="dropdown"><a href="#"><span>
+										Salons</span><i class="bi bi-chevron-left"></i></a>
 								<ul>
-									<li><a href="#">Nail Salons</a></li>
-									<li><a href="#">Hair Salons</a></li>
-									<li><a href="#">Barber Shops</a></li>
+									<li><a href="vendor.php?id=NailSalons">Nail Salons</a></li>
+									<li><a href="vendor.php?id=HairSalons">Hair Salons</a></li>
+									<li><a href="vendor.php?id=Barbershops">Barber Shops</a></li>
 								</ul>
 							</li>
-							<li><a href="#">Jewellers</a></li>
-							<li><a href="#">Cake</a></li>
-							<li><a href='#'>Videographers</a></li>
-							<li><a href="#">Dresses and Suits</a></li>
-							<li><a href='#'>Videographers</a></li>
-							<li class="dropdown"><a href="#"><span>Venues</span><i class="bi bi-chevron-right"></i></a>
+							<li><a href="vendor.php?id=Jewellers">Jewellers</a></li>
+							<li><a href="vendor.php?id=Cake">Cake</a></li>
+							<li><a href="vendor.php?id=Food">Food</a></li>
+							<li><a href='vendor.php?id=Videographers'>Videographers</a></li>
+							<li><a href="vendor.php?id=Sewers">Sewers</a></li>
+							<!--li><a href='vendor.php?id=<?php echo $category; ?>'>Videographers</a></li-->
+							<li class="dropdown"><a href="#"><span>Venues</span><i class="bi bi-chevron-left"></i></a>
 								<ul>
-									<li><a href="#">Botanical Gardens</a></li>
-									<li><a href="#">Churches,Mosqus etc...</a></li>
-									<li><a href="#">Social Halls</a></li>
+									<li><a href="vendor.php?id=Gardens">Botanical Gardens</a></li>
+									<li><a href="vendor.php?id=Churches">Churches</a></li>
+									<li><a href="vendor.php?id=Mosques">Mosques</a></li>
+									<li><a href="vendor.php?id=Temples">Temples</a></li>
+									<li><a href="vendor.php?id=Halls">Social Halls</a></li>
 								</ul>
 							</li>
 
 
 
 
-							<li><a href="#">More Vendors</a></li>
+							<li><a href="vendors.php">More Vendors</a></li>
 						</ul>
 					</li>
-					<li><a class="nav-link scrollto" href="registry.php">Registry</a></li>
-					<li><a class="nav-link scrollto" href="">About</a></li>
-					<li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
-					<li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
-					<li><a class="nav-link scrollto" href="#team">Team</a></li>
+					<li><a class="nav-link" href="registry.php">Registry</a></li>
+					<li><a class="nav-link" href="about.php">About</a></li>
+					<li><a class="nav-link" href="">Portfolio</a></li>
+					<li><a class="nav-link" href="price.php">Pricing</a></li>
+					<!--li><a class="nav-link scrollto" href="#team">Team</a></li-->
 
-					<li class="nav-link active"><a href="signup.php"><span>Signup</span></a>
+					<li><a class="nav-link active" href="signup.php"><span>Signup</span></a>
 
 					</li>
 					<li><a class="nav-link" href="login.php">Login</a></li>
@@ -240,7 +245,8 @@ $y=mail($to,$email_subject,$email_body,$headers);*/
 			</nav><!-- .navbar -->
 
 		</div>
-	</header><!-- End Header -->
+	</header>
+	<!-- End Heade
 	<!--Main--->
 	<main>
 		<div class="section-title">
@@ -250,107 +256,75 @@ $y=mail($to,$email_subject,$email_body,$headers);*/
 		</div>
 		<center>
 			<div class="container col-lg-8 col-md-8 col-sm-8 mt-3 mb-5 py-2 mx-auto" style="background-color: #c1828B" data-aos="fade-up">
-				<form method="POST" class="py-5 px-5">
+				<form method="POST" class="py-5 px-5" enctype="multipart/form-data">
 
 					<div class="form-group col-lg-12 col-md-12 col-sm-12 mb-2">
 						<div class="input-group">
 							<div class="input-group-prepend">
-								<span class="input-group-text" id="basic-addon1"><i class="fas fa-font"></i></span>
+								<span class="input-group-text px-4 bg-white border-right-0 border-md"><i class="fas fa-user text-muted"></i></span>
 							</div>
-							<input type="text" class="form-control" name="vendor_name" placeholder="Enter Vendor Name" Required>
+							<input type="text" class="form-control bg-white border-left-0 border-md" name="user_name" placeholder="Enter User Name" >
 						</div>
 					</div>
 					<div class="form-group col-lg-12 col-md-12 col-sm-12 mb-2">
 						<div class="input-group">
 							<div class="input-group-prepend">
-								<span class="input-group-text" id="basic-addon1"><i class="fas fa-mail-bulk"></i></span>
+								<span class="input-group-text bg-white border-right-0 border-md"><i class="fas fa-mail-bulk text-muted"></i></span>
 							</div>
-							<input type="text" class="form-control" name="vendor_email" placeholder="Enter Email Adress" Required>
+							<input type="text" class="form-control bg-white border-left-0 border-md" name="vendor_email" placeholder="Enter Email Adress" Required>
 						</div>
-					</div>
-					<div class="form-group col-lg-12 col-md-12 col-sm-12 mb-2">
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="basic-addon1"><i class="fas fa-map"></i></span>
-							</div>
-							<input type="text" class="form-control" name="vendor_location" placeholder="Enter Location" Required>
-						</div>
-					</div>
-					<div class="form-group col-lg-12 col-md-12 col-sm-12 mb-2">
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="basic-addon1"><i class="fas fa-phone"></i></span>
-							</div>
-							<input type="text" class="form-control" name="vendor_phone" placeholder="Enter Phone Number" Required>
-						</div>
-					</div>
+					
 					<!--TEMP TILL WE GET AN EMAIL ADRESS-->
 					<div class="form-group col-lg-12 col-md-12 col-sm-12 mb-2">
 						<div class="input-group">
 							<div class="input-group-prepend">
-								<span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+								<span class="input-group-text px-4 bg-white border-right-0 border-md"><i class="fas fa-key text-muted"></i></span>
 							</div>
-							<input type="password" class="form-control" name="password" placeholder="Enter Password" Required>
+							<input type="password" class="form-control bg-white border-left-0 border-md" name="password" placeholder="Enter Password" Required>
 						</div>
 					</div>
 					<div class="form-group col-lg-12 col-md-12 col-sm-12 mb-2">
 						<div class="input-group">
 							<div class="input-group-prepend">
-								<span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+								<span class="input-group-text px-4 bg-white border-right-0 border-md"><i class="fas fa-key text-muted"></i></span>
 							</div>
-							<input type="password" class="form-control" name="password2" placeholder="Confirm Password" Required>
+							<input type="password" class="form-control bg-white border-left-0 border-md" name="password2" placeholder="Confirm Password" Required>
 						</div>
 					</div>
 
+					<!--
 					<div class="form-group col-lg-12 col-md-12 col-sm-12 mb-2">
 						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="basic-addon1">Vendor Category</span>
-							</div>
-							<select name="vendor_category" class="form-control bg-light border-2 small mdb-select md-form" name="vendor_category" placeholder="Vendor Category" aria-describedby="basic-addon2" Required>
-								<option value="" disabled selected><em>Select Category</em></option>
-								<optgroup>
-									<option value="" disabled selected><em>Music</em></option>
-									<option value="DJs">DJ</option>
-									<option value="Bands">Music Band</option>
-									<option value="Dancers">Dancers</option>
-									<option value="Orchestra">Ochestra</option>
-								</optgroup>
-								<optgroup>
-									<option value="" disabled selected><em>Hosting</em></option>
-									<option value="Planners">Event planner</option>
-									<option value="Florists">Florist</option>
-									<option value="Jewellers">Jeweller</option>
-									<option value="Sewers">Sewing and Design</option>
-									<option value="MCs">MC</option>
-									<option value="Tents">Tents</option>
-									<option value="Furniture">Furniture</option>
-								</optgroup>
-								<optgroup>
-									<option value="" disabled selected><em>Food</em></option>
-									<option value="Chefs">Food provider</option>
-									<option value="Bakers">Baker</option>
-									<option value="Food">Both</option>
-								</optgroup>
-								<optgroup>
-									<option value="" disabled selected><em>Beauty/grooming</em></option>
-									<option value="Hair Salons">Hair Salon</option>
-									<option value="Barbers">Barber shop</option>
-									<option value="Nail Salon">Nail Salon</option>
-									<option value="Makeup">Makeup</option>
-									<option value="Salon">All the Above</option>
-								</optgroup>
-								<optgroup>
-									<option value="" disabled selected><em>Venues</em></option>
-									<option value="Churches">Church</option>
-									<option value="Gardens">Botanical Garden</option>
-									<option value="Halls">Social Hall</option>
-									<option value="Mosques">Mosque</option>
-									<option value="Temples">Temple</option>
-								</optgroup>
+
+							<select name="vendor_category[]" class="form-control bg-light  border-left-0 border-md border-2 small mdb-select md-form" name="vendor_category" placeholder="Vendor Category" aria-describedby="basic-addon2" multiple="multiple" required>
+								<option value="" disabled selected>Select Vendor Category(S)</option>
+								<option value="DJs">DJ</option>
+								<option value="Bands">Music Band</option>
+								<option value="Dancers">Dancers</option>
+								<option value="Orchestra">Ochestra</option>
+								<option value="Planners">Event planner</option>
+								<option value="Florists">Florist</option>
+								<option value="Jewellers">Jeweller</option>
+								<option value="Sewers">Sewing and Design</option>
+								<option value="MCs">MC</option>
+								<option value="Tents">Tents</option>
+								<option value="Furniture">Furniture</option>
+								<option value="Chefs">Food provider</option>
+								<option value="Bakers">Baker</option>
+								<option value="Hair Salons">Hair Salon</option>
+								<option value="Barbers">Barber shop</option>
+								<option value="Nail Salon">Nail Salon</option>
+								<option value="Makeup">Makeup</option>
+								<option value="Churches">Church</option>
+								<option value="Gardens">Botanical Garden</option>
+								<option value="Halls">Social Hall</option>
+								<option value="Mosques">Mosque</option>
+								<option value="Temples">Temple</option>
+
 							</select>
 						</div>
 					</div>
+-->
 					<center><button class="btn btn-primary btn-block" name="send" type="submit">Submit</button></center>
 				</form>
 
@@ -452,6 +426,11 @@ $y=mail($to,$email_subject,$email_body,$headers);*/
 
 	<!-- Template Main JS File -->
 	<script src="assets/js/main.js"></script>
+
+	<!--Bootstrap scripts-->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </body>
 

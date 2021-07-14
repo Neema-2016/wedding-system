@@ -2,7 +2,7 @@
 session_start();
 include 'include/config.php';
 $id=$_GET['id'];
-$sql=mysqli_query($conn,"SELECT * FROM vendors WHERE vendor_category='$id'");
+$sql=mysqli_query($conn,"SELECT * FROM vendors WHERE vendor_category LIKE '%$id%'");
 if($sql){
 $num=mysqli_num_rows($sql);
 if($num == 0){
@@ -27,7 +27,8 @@ if($num == 0){
 	<!-- Favicons -->
 	<link href="assets/black.png" rel="icon">
 	<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
+	<!--Font Awesome Link-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
@@ -39,6 +40,14 @@ if($num == 0){
 	<link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
 	<link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
+	<!--Additional Links(Data tables)-->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-
+    BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+	<link href="assets/css/style.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+
 	<!-- Template Main CSS File -->
 	<link href="assets/css/vendor-box.css" rel="stylesheet">
 	<link href="assets/css/style.css" rel="stylesheet">
@@ -49,6 +58,70 @@ if($num == 0){
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+	<style>
+		.fancy_card {}
+
+		.fancy_card:hover {
+			-webkit-box-shadow: -1px 9px 40px 12px rgba(0, 0, 0, 0.75);
+			-moz-box-shadow: -1px 9px 40px 12px rgba(0, 0, 0, 0.75);
+			box-shadow: -1px 9px 40px 12px rgba(0, 0, 0, 0.75);
+
+
+
+		}
+
+		.fas {
+			color: #FFD700 !important;
+		}
+
+		/*
+		.hero:hover {
+
+		transform: scaleX(-1);
+		}
+*/
+		.hero--video {
+			display: flex;
+			-webkit-box-align: center;
+			-ms-flex-align: center;
+			align-items: center;
+
+		}
+
+		.hero .search {
+			position: relative;
+			vertical-align: middle;
+			z-index: 2;
+		}
+
+		.hero .search input {
+			width: 70%;
+			height: 76px;
+			line-height: 76px;
+			border: 1px solid #111;
+			background: rgba(0, 0, 0, 0.8);
+			/*font-size: 27px;*/
+			padding: 5px 5px 5px 47px;
+			color: #fff !important;
+			position: static;
+			border-radius: 0;
+		}
+
+		.hero .search button {
+			position: absolute;
+			top: 6px;
+			right: 6px;
+			color: #fff;
+			background: #88687b;
+			font-size: 27px;
+			height: 65px;
+			line-height: 65px;
+			width: 68px;
+			padding: 0;
+			border: 0;
+		}
+
+	</style>
 </head>
 
 <body>
@@ -68,6 +141,7 @@ if($num == 0){
 			</div>
 		</div>
 	</section>
+	<!-- ======= Header ======= -->
 	<header id="header" class="d-flex align-items-center">
 		<div class="container d-flex align-items-center justify-content-between">
 
@@ -76,48 +150,52 @@ if($num == 0){
 			<!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
 			<nav id="navbar" class="navbar">
-				<ul>
+				<ul class="mr-auto">
 					<li><a class="nav-link" href="index.php">Home</a></li>
-					<li class="dropdown"><a href="#"><span>Vendors</span> <i class="bi bi-chevron-down"></i></a>
+					<li class="dropdown"><a href="#" active><span>Vendors</span> <i class="bi bi-chevron-down"></i></a>
 						<ul>
-							<li><a href="#">DJs</a></li>
-							<li><a href="#">Bands</a>
+							<li><a href="vendor.php?id=DJs">DJs</a></li>
+							<li><a href="vendor.php?id=Bands">Bands</a>
 
-							<li><a href="#">Wedding Planners</a></li>
-							<li><a href="#">Florists</a></li>
-							<li class="dropdown"><a href="#"><span>Salons</span><i class="bi bi-chevron-right"></i></a>
+							<li><a href="vendor.php?id=Planners">Wedding Planners</a></li>
+							<li><a href="vendor.php?id=Florists">Florists</a></li>
+							<li class="dropdown"><a href="#"><span>
+										Salons</span><i class="bi bi-chevron-left"></i></a>
 								<ul>
-									<li><a href="#">Nail Salons</a></li>
-									<li><a href="#">Hair Salons</a></li>
-									<li><a href="#">Barber Shops</a></li>
+									<li><a href="vendor.php?id=NailSalons">Nail Salons</a></li>
+									<li><a href="vendor.php?id=HairSalons">Hair Salons</a></li>
+									<li><a href="vendor.php?id=Barbershops">Barber Shops</a></li>
 								</ul>
 							</li>
-							<li><a href="#">Jewellers</a></li>
-							<li><a href="#">Cake</a></li>
-							<li><a href='#'>Videographers</a></li>
-							<li><a href="#">Dresses and Suits</a></li>
-							<li><a href='#'>Videographers</a></li>
-							<li class="dropdown"><a href="#"><span>Venues</span><i class="bi bi-chevron-right"></i></a>
+							<li><a href="vendor.php?id=Jewellers">Jewellers</a></li>
+							<li><a href="vendor.php?id=Cake">Cake</a></li>
+							<li><a href="vendor.php?id=Food">Food</a></li>
+							<li><a href='vendor.php?id=Videographers'>Videographers</a></li>
+							<li><a href="vendor.php?id=Sewers">Sewers</a></li>
+							<!--li><a href='vendor.php?id=<?php echo $category; ?>'>Videographers</a></li-->
+							<li class="dropdown"><a href="#"><span>Venues</span><i class="bi bi-chevron-left"></i></a>
 								<ul>
-									<li><a href="#">Botanical Gardens</a></li>
-									<li><a href="#">Churches,Mosqus etc...</a></li>
-									<li><a href="#">Social Halls</a></li>
+									<li><a href="vendor.php?id=Gardens">Botanical Gardens</a></li>
+									<li><a href="vendor.php?id=Churches">Churches</a></li>
+									<li><a href="vendor.php?id=Mosques">Mosques</a></li>
+									<li><a href="vendor.php?id=Temples">Temples</a></li>
+									<li><a href="vendor.php?id=Halls">Social Halls</a></li>
 								</ul>
 							</li>
 
 
 
 
-							<li><a href="#">More Vendors</a></li>
+							<li><a href="vendors.php">More Vendors</a></li>
 						</ul>
 					</li>
-					<li><a class="nav-link" href="registry.php">Registry</a></li>
-					<li><a class="nav-link" href="about.php">About</a></li>
-					<li><a class="nav-link" href="">Portfolio</a></li>
-					<li><a class="nav-link active" href="price.php">Pricing</a></li>
+					<li><a class="nav-link scrollto" href="registry.php">Registry</a></li>
+					<li><a class="nav-link scrollto" href="about.php">About</a></li>
+					<li><a class="nav-link scrollto " href="">Portfolio</a></li>
+					<li><a class="nav-link scrollto" href="price.php">Pricing</a></li>
 					<!--li><a class="nav-link scrollto" href="#team">Team</a></li-->
 
-					<li class="nav-link"><a href="signup.php"><span>Signup</span></a>
+					<li><a class="nav-link" href="signup.php"><span>Signup</span></a>
 
 					</li>
 					<li><a class="nav-link" href="login.php">Login</a></li>
@@ -126,76 +204,119 @@ if($num == 0){
 			</nav><!-- .navbar -->
 
 		</div>
-	</header><!-- End Header -->
-
-
+	</header>
+	<!-- End Header
 
 	<!-- ======= Hero Section ======= -->
+	<!-- ======= Hero Section ======= -->
+	<section id="hero" class="d-flex hero align-items-center" style="background: url('assets/img/glasses.jpg'); width: 100%!important; height: 50vh; min-height:100%;" hero--video>
+		<div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
+			<h1 class="text-center"><?php echo $id; ?></h1>
+			<h2 class="text-center"><em>Listed below is a group of &nbsp;<?php echo $id; ?>&nbsp;In the country.</em></h2>
+			<div class="col-12">
+				<div class="search">
 
 
-	<main id="main">
-		<!-- ======= Services Section ======= -->
-		<section>
-			<div class="container">
-
-				<div class="section-title">
-					<span><?php echo $id; ?></span>
-					<h2><?php echo $id; ?></h2>
-					<p>Listed below is a group of trusted&nbsp;<?php echo $id; ?>&nbsp;in the country.</p>
+					<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by Location or <?php echo $id; ?>' name...">
 				</div>
+			</div>
+		</div>
+	</section><!-- End Hero -->
 
+	<main>
+		<!-- ======= Services Section ======= -->
+		<section style="background: url('assets/img/glasses.jpg')linear-gradient(180deg, #181818, #181818, rgba(81, 81, 81, .7)); width: 100%!important; min-height: 100vh;">
+			<div class="container-fluid">
 				<div class="row">
 					<?php
 while($row =mysqli_fetch_assoc($sql)){
 		$vendorid=$row['vendor_id'];
 		$vendorname=$row['vendor_name'];
 		$location=$row['vendor_location'];
-	$image='';
-	$brief='';
+	    $image=$row['vendor_images'];
+	    $brief=$row['vendor_description']
 	
 ?>
-					<div class="col-lg-3 col-md-6 col-sm-6 wow fadeInLeft delay-04s">
-						<div class="card property-box-2">
-							<!-- property img -->
-							<div class="property-thumbnail">
-								<a href="properties-details.html" class="property-img">
-									<img src="assets/img/vendor_img/<?php echo $image; ?>" alt="property-3" class="img-fluid">
-								</a>
-								<div class="property-overlay">
-									<a href="properties-details.html" class="overlay-link">
-										<i class="fa fa-link"></i>
-									</a>
-									<a class="overlay-link property-video" title="Test Title">
-										<i class="fa fa-video-camera"></i>
-									</a>
-									<div class="property-magnify-gallery">
-										<a href="assets/img/property-3.jpg" class="overlay-link">
-											<i class="fa fa-expand"></i>
-										</a>
-										<a href="assets/img/property-7.jpg" class="hidden"></a>
-										<a href="assets/img/property-6.jpg" class="hidden"></a>
-									</div>
+					<div class="col-lg-3 col-md-6 col-sm-12" id="myTable" data-aos="fade-In-left" data-aos-delay="4000">
+						<a href="single-vendor.php?id=<?php echo $vendorid; ?>">
+							<div class="card fancy_card mb-3" style="height: 25rem">
+								<img class="card-img-top" src="images/vendor_images/<?php echo $image;?>" alt="Card image cap">
+								<div class="card-body">
+									<h5 class="text-center text-primary" style="text-transform:uppercase;font-size: 15px;font-family:fangsong;"><?php echo $vendorname; ?></h5>
+									<p class="card-text text-center text-primary"><i class="fas fa-map" style="color:grey!important;"></i>&nbsp;<?php echo $location;?></p>
+
 								</div>
-							</div>
-							<!-- detail -->
-							<div class="detail">
-								<h5 class="title"><a href="properties-details.html"><?php echo $vendorname; ?></a></h5>
-								<h4 class="price">
-									<?php echo $location; ?>
-								</h4>
-								<p><?php echo $brief; ?></p>
+								<div class="card-footer">
+									<?php
+									$sql=mysqli_query($conn,"SELECT * FROM reviews WHERE vendor_id='$vendorid'");
+if($sql){
+    while($data =mysqli_fetch_assoc($sql)){
+         $rate_db[] = $data;
+         $sum_rates=$data['rate'];
+            }
+            if(count($rate_db)){
+                $rate_times = count($rate_db);
+                $sum_rates = array_sum($sum_rates);
+                $rate_value = $sum_rates/$rate_times;
+                $rate_bg = (($rate_value)/5)*100;
+            }else{
+                $rate_times = 0;
+                $rate_value = 0;
+                $rate_bg = 0;
+            }
+
+    }
+
+?>
+									<div class="container star d-flex align-items-start">
+										<?php if($rate_bg >=80){
+
+											echo'
+										<span class="fa fa-star checked " style="color:orange;"></span>
+										<span class="fa fa-star checked " style="color:orange;"></span>
+										<span class="fa fa-star checked " style="color:orange;"></span>
+										<span class="fa fa-star checked " style="color:orange;"></span>
+										<span class="fa fa-star checked " style="color:orange;"></span>';
+									}
+
+										if($rate_bg >=60){
+												echo'
+										<span class="fa fa-star checked " style="color:orange;"></span>
+										<span class="fa fa-star checked " style="color:orange;"></span>
+										<span class="fa fa-star checked " style="color:orange;"></span>
+										<span class="fa fa-star checked " style="color:orange;"></span>';
+
+										}
+										if($rate_bg >=40){
+											echo'
+											<span class="fa fa-star checked " style="color:orange;"></span>
+										<span class="fa fa-star checked " style="color:orange;"></span>
+										<span class="fa fa-star checked " style="color:orange;"></span>';
+										}
+										if($rate_bg >= 20){
+											echo'
+											<span class="fa fa-star checked " style="color:orange;"></span>
+										<span class="fa fa-star checked " style="color:orange;"></span>
+										';
+										}
+										if($rate_bg >=10){
+											echo'<span class="fa fa-star checked " style="color:orange;"></span>';
+										}
+										?>
+
+
+									</div>
+
+
+								</div>
 
 							</div>
-							<div class="card-footer">
-								<center><a class="btn btn-sm btn-primary" href="single-vendor.php?id=<?php echo $vendorid; ?>">View</a></center>
-							</div>
-						</div>
+						</a>
 					</div>
 					<?php }}?>
 				</div>
 			</div>
 		</section>
-
 
 	</main><!-- End #main -->
 
@@ -275,6 +396,33 @@ while($row =mysqli_fetch_assoc($sql)){
 
 	<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 	<div id="preloader"></div>
+
+	<!-- Bootstrap core JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+	<script>
+		$(document).ready(function() {
+			$("#myInput").on("keyup", function() {
+				var value = $(this).val().toLowerCase();
+				$("#myTable ").filter(function() {
+					$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+				});
+			});
+		});
+
+	</script>
+	<script>
+		var UL = document.getElementById("myUL");
+		// hilde the list by default
+		UL.style.display = "none";
+
+		var searchBox = document.getElementById("myInput");
+
+		// show the list when the input receive focus
+		searchBox.addEventListener("focus", function() {
+			// UL.style.display = "block";
+		});
+
+	</script>
 
 	<!-- Vendor JS Files -->
 	<script src="assets/vendor/aos/aos.js"></script>

@@ -132,7 +132,8 @@ $y=mail($to,$email_subject,$email_body,$headers);*/
 	<!-- Favicons -->
 	<link href="assets/img/favicon.png" rel="icon">
 	<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
+	<!--Bootstrap links-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<!-- Google Fonts -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -173,7 +174,6 @@ $y=mail($to,$email_subject,$email_body,$headers);*/
 			</div>
 		</div>
 	</section>
-
 	<!-- ======= Header ======= -->
 	<header id="header" class="d-flex align-items-center">
 		<div class="container d-flex align-items-center justify-content-between">
@@ -183,48 +183,52 @@ $y=mail($to,$email_subject,$email_body,$headers);*/
 			<!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
 			<nav id="navbar" class="navbar">
-				<ul>
+				<ul class="mr-auto">
 					<li><a class="nav-link" href="index.php">Home</a></li>
 					<li class="dropdown"><a href="#"><span>Vendors</span> <i class="bi bi-chevron-down"></i></a>
 						<ul>
-							<li><a href="#">DJs</a></li>
-							<li><a href="#">Bands</a>
+							<li><a href="vendor.php?id=DJs">DJs</a></li>
+							<li><a href="vendor.php?id=Bands">Bands</a>
 
-							<li><a href="#">Wedding Planners</a></li>
-							<li><a href="#">Florists</a></li>
-							<li class="dropdown"><a href="#"><span>Salons</span><i class="bi bi-chevron-right"></i></a>
+							<li><a href="vendor.php?id=Planners">Wedding Planners</a></li>
+							<li><a href="vendor.php?id=Florists">Florists</a></li>
+							<li class="dropdown"><a href="#"><span>
+										Salons</span><i class="bi bi-chevron-left"></i></a>
 								<ul>
-									<li><a href="#">Nail Salons</a></li>
-									<li><a href="#">Hair Salons</a></li>
-									<li><a href="#">Barber Shops</a></li>
+									<li><a href="vendor.php?id=NailSalons">Nail Salons</a></li>
+									<li><a href="vendor.php?id=HairSalons">Hair Salons</a></li>
+									<li><a href="vendor.php?id=Barbershops">Barber Shops</a></li>
 								</ul>
 							</li>
-							<li><a href="#">Jewellers</a></li>
-							<li><a href="#">Cake</a></li>
-							<li><a href='#'>Videographers</a></li>
-							<li><a href="#">Dresses and Suits</a></li>
-							<li><a href='#'>Videographers</a></li>
-							<li class="dropdown"><a href="#"><span>Venues</span><i class="bi bi-chevron-right"></i></a>
+							<li><a href="vendor.php?id=Jewellers">Jewellers</a></li>
+							<li><a href="vendor.php?id=Cake">Cake</a></li>
+							<li><a href="vendor.php?id=Food">Food</a></li>
+							<li><a href='vendor.php?id=Videographers'>Videographers</a></li>
+							<li><a href="vendor.php?id=Sewers">Sewers</a></li>
+							<!--li><a href='vendor.php?id=<?php echo $category; ?>'>Videographers</a></li-->
+							<li class="dropdown"><a href="#"><span>Venues</span><i class="bi bi-chevron-left"></i></a>
 								<ul>
-									<li><a href="#">Botanical Gardens</a></li>
-									<li><a href="#">Churches,Mosqus etc...</a></li>
-									<li><a href="#">Social Halls</a></li>
+									<li><a href="vendor.php?id=Gardens">Botanical Gardens</a></li>
+									<li><a href="vendor.php?id=Churches">Churches</a></li>
+									<li><a href="vendor.php?id=Mosques">Mosques</a></li>
+									<li><a href="vendor.php?id=Temples">Temples</a></li>
+									<li><a href="vendor.php?id=Halls">Social Halls</a></li>
 								</ul>
 							</li>
 
 
 
 
-							<li><a href="#">More Vendors</a></li>
+							<li><a href="vendors.php">More Vendors</a></li>
 						</ul>
 					</li>
-					<li><a class="nav-link scrollto" href="registry.php">Registry</a></li>
-					<li><a class="nav-link scrollto" href="">About</a></li>
-					<li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
-					<li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
-					<li><a class="nav-link scrollto" href="#team">Team</a></li>
+					<li><a class="nav-link" href="registry.php">Registry</a></li>
+					<li><a class="nav-link" href="about.php">About</a></li>
+					<li><a class="nav-link" href="">Portfolio</a></li>
+					<li><a class="nav-link" href="price.php">Pricing</a></li>
+					<!--li><a class="nav-link scrollto" href="#team">Team</a></li-->
 
-					<li class="nav-link active"><a href="signup.php"><span>Signup</span></a>
+					<li><a class="nav-link active" href="signup.php"><span>Signup</span></a>
 
 					</li>
 					<li><a class="nav-link" href="login.php">Login</a></li>
@@ -233,14 +237,14 @@ $y=mail($to,$email_subject,$email_body,$headers);*/
 			</nav><!-- .navbar -->
 
 		</div>
-	</header><!-- End Header -->
+	</header>
 	<!--Main--->
 	<main>
 		<div class="section-title">
 			<span>SIGNUP</span>
 			<h2>Individual Sign Up Form</h2>
 			<div class="col-md-4 col-lg-4 col-sm-6" style="color: red">
-				<?php echo '$password_err'; ?>
+
 
 			</div>
 		</div>
@@ -251,50 +255,50 @@ $y=mail($to,$email_subject,$email_body,$headers);*/
 					<div class="form-group col-lg-12 col-md-12 col-sm-12 mb-2">
 						<div class="input-group">
 							<div class="input-group-prepend">
-								<span class="input-group-text" id="basic-addon1"><i class="fas fa-font"></i></span>
+								<span class="input-group-text bg-white px-4 border-right-0 border-md"><i class="fas fa-user text-muted"></i></span>
 							</div>
-							<input type="text" class="form-control" name="individual_name" placeholder="Enter  Name" Required>
+							<input type="text" class="form-control bg-white border-left-0 border-md" name="individual_name" placeholder="Enter  Name" Required>
 						</div>
 					</div>
 					<div class="form-group col-lg-12 col-md-12 col-sm-12 mb-2">
 						<div class="input-group">
 							<div class="input-group-prepend">
-								<span class="input-group-text" id="basic-addon1"><i class="fas fa-mail-bulk"></i></span>
+								<span class="input-group-text bg-white px-4 border-right-0 border-md"><i class="fas fa-mail-bulk text-muted"></i></span>
 							</div>
-							<input type="text" class="form-control" name="individual_email" placeholder="Enter Email Adress" Required>
+							<input type="text" class="form-control bg-white border-left-0 border-md" name="individual_email" placeholder="Enter Email Adress" Required>
 						</div>
 					</div>
 					<!--TEMP TILL WE GET AN EMAIL ADRESS-->
 					<div class="form-group col-lg-12 col-md-12 col-sm-12 mb-2">
 						<div class="input-group">
 							<div class="input-group-prepend">
-								<span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+								<span class="input-group-text bg-white px-4 border-right-0 border-md"><i class="fas fa-key text-muted"></i></span>
 							</div>
-							<input type="password" class="form-control" name="password" placeholder="Enter Password" Required>
+							<input type="password" class="form-control bg-white  border-left-0 border-md" name="password" placeholder="Enter Password" Required>
 						</div>
 					</div>
 					<div class="form-group col-lg-12 col-md-12 col-sm-12 mb-2">
 						<div class="input-group">
 							<div class="input-group-prepend">
-								<span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+								<span class="input-group-text bg-white px-4 border-right-0 border-md"><i class="fas fa-key text-muted"></i></span>
 							</div>
-							<input type="password" class="form-control" name="password2" placeholder="Confirm Password" Required>
+							<input type="password" class="form-control bg-white  border-left-0 border-md" name="password2" placeholder="Confirm Password" Required>
 						</div>
 					</div>
 					<div class="form-group col-lg-12 col-md-12 col-sm-12 mb-2">
 						<div class="input-group">
 							<div class="input-group-prepend">
-								<span class="input-group-text" id="basic-addon1"><i class="fas fa-map"></i></span>
+								<span class="input-group-text bg-white px-4 border-right-0 border-md"><i class="fas fa-map text-muted"></i></span>
 							</div>
-							<input type="text" class="form-control" name="individual_location" placeholder="Enter Location" Required>
+							<input type="text" class="form-control bg-white  border-left-0 border-md" name="individual_location" placeholder="Enter Location" Required>
 						</div>
 					</div>
 					<div class="form-group col-lg-12 col-md-12 col-sm-12 mb-2">
 						<div class="input-group">
 							<div class="input-group-prepend">
-								<span class="input-group-text" id="basic-addon1"><i class="fas fa-phone"></i></span>
+								<span class="input-group-text bg-white px-4 border-right-0 border-md"><i class="fas fa-phone text-muted"></i></span>
 							</div>
-							<input type="text" class="form-control" name="individual_phone" placeholder="Enter Phone Number" Required>
+							<input type="text" class="form-control bg-white border-left-0 border-md" name="individual_phone" placeholder="Enter Phone Number" Required>
 						</div>
 					</div>
 
@@ -395,7 +399,11 @@ $y=mail($to,$email_subject,$email_body,$headers);*/
 
 	<!-- Template Main JS File -->
 	<script src="assets/js/main.js"></script>
+	<!--Bootstrap scripts-->
 
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 
 </html>

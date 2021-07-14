@@ -1,3 +1,152 @@
+<?php
+//session_start();
+//include'include/config.php';
+//if(isset($_POST['submit'])){
+//	
+//	$email=$_POST['email'];
+//	$password=$_POST['password'];
+//	
+//	 
+//	//validate Email Address
+//	$query=mysqli_query($conn,"SELECT * FROM users WHERE user_email='$email'");
+//	if($query){
+//		while($row=mysqli_fetch_assoc($query)){
+//			$pass=$row['user_email'];
+//		}
+//		$number=mysqli_num_rows($query);
+//		if($number == 0){
+//			$emailErr="Incorrect Email Address";
+//		}else{
+//	
+//	//Validate Password
+//	
+//	$ql=mysqli_query($conn,"SELECT * FROM users WHERE user_email='$email' AND password='$password'");
+//	if($ql){
+//	$num=mysqli_num_rows($ql);
+//		if($num == 0){
+//			$passwordErr="Incorrect Password";
+//		}
+//			
+//		}
+//	}
+//
+//	}
+//	
+//	
+//	
+//        $sql="SELECT * FROM users WHERE user_email=? AND password=?";
+//        $stmt=$conn->prepare($sql);
+//        $stmt->bind_param("ss",$email,$password);
+//        $stmt->execute();
+//        $result=$stmt->get_result();
+//        $row=$result->fetch_assoc();
+//       
+//          session_regenerate_id();
+//          $_SESSION['user_email']=$row['user_email'];
+//          $_SESSION['password']=$row['password'];
+//          $_SESSION['id']=$row['id'];
+//          $_SESSION['role']=$row['role']; 
+//	      $_SESSION['user_name']=$row['user_name'];
+//          session_write_close();
+//        
+//               if($result->num_rows ==1 && $_SESSION['user_email']=="$email" && $_SESSION['password']=="$password" && $_SESSION['role']=='Individual'){
+//                 header("location:user_account.php?login=success");}
+//				   elseif($result->num_rows ==1 && $_SESSION['user_email']=="$email" && $_SESSION['password']=="$password" && $_SESSION['role']=='Couple'){
+//                 header("location:user_account.php?login=success");}
+//					   elseif($result->num_rows ==1 && $_SESSION['user_email']=="$email" && $_SESSION['password']=="$password" && $_SESSION['role']=='Vendor'){
+//                 header("location:user_account.php?login=success");		}	   						  
+//				   elseif($result->num_rows==1 &&_SESSION['user_email']=="$email" && $_SESSION['password']=="$password" && $_SESSION['role']=='Admin'){
+//					   header("location:admin.php?login=success");
+//				   }else{
+//			  echo '<script type="text/javascript">'; 
+//    echo 'alert("An Error occured during submission. '."$emailErr".' '."$passwordErr".'");'; 
+//    echo '</script>';
+//}
+//		 }
+//	
+session_start();
+include('include/config.php');
+ 
+
+    if(isset($_POST["submit"])){
+         //mysqli_select_db($conn,"linknama_nyumba");
+      
+        $email=$_POST["email"];
+        $password=$_POST["password"];
+        $password_err="";
+        $email_err="";
+        
+        // validate password
+        if(empty(trim($_POST["password"]))){
+        $password_err = "Please enter a password."; 
+        }
+         if (empty($_POST["email"])) {
+    $email_err = "Email is required";
+  } else{
+    // check if e-mail address is well-formed
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      $email_err = "Invalid email format";
+    }
+    $sql2=mysqli_query($conn,"SELECT * FROM users where user_email ='$email'");
+    $num_rows = mysqli_num_rows($sql2);
+					if($num_rows == 0 ){
+    $email_err ="Incorrect Email Adress";
+  }
+  $sql4=mysqli_query($conn,"SELECT * FROM users where  user_email='$email' AND password='$password'");
+  $number= mysqli_num_rows($sql4);
+  if($number == 0){
+      $password_err="Incorrect Password";
+  }
+  }
+  
+        $sql="SELECT * FROM users WHERE user_email=? AND password=?";
+        $stmt=$conn->prepare($sql);
+        $stmt->bind_param("ss",$email,$password);
+        $stmt->execute();
+        $result=$stmt->get_result();
+        $row=$result->fetch_assoc();
+       
+          session_regenerate_id();
+          $_SESSION['user_email']=$row['user_email'];
+          $_SESSION['password']=$row['password'];
+          $_SESSION['id']=$row['id'];
+          $_SESSION['role']=$row['role'];
+          $_SESSION['user_name']=$row['user_name'];
+          
+        session_write_close();
+        
+       
+               if($result->num_rows ==1 && $_SESSION['user_email']=="$email" && $_SESSION['password']=="$password" && $_SESSION['role']=='Admin'){
+                 header("location:admin.php?login=success");
+        }
+   if($result->num_rows ==1 && $_SESSION['user_email']=="$email" && $_SESSION['password']=="$password" && $_SESSION['role']=='Individual'){
+
+                 header("location:user_account1.php?login=success");
+                
+	
+        }
+
+    if($result->num_rows ==1  && $_SESSION['user_email']=="$email" && $_SESSION['password']=="$password"  && $_SESSION['role']=='Vendor'){
+         header("location:user_account.php?login=success");
+       
+            }
+			if($result->num_rows ==1  && $_SESSION['user_email']=="$email" && $_SESSION['password']=="$password"  && $_SESSION['role']=='Couple'){
+
+         header("location:user_account1.php?login=success");
+       
+            }
+    else{
+        echo '<script type="text/javascript">'; 
+    echo 'alert("An Error occured during submission.'."$email_err".'  '."$password_err".' '."$expiration_err".'");'; 
+    //echo 'window.location = "#";';
+    echo '</script>'; 
+    }
+    }
+
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +161,10 @@
 	<!-- Favicons -->
 	<link href="assets/black.png" rel="icon">
 	<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
+	<!--Bootstrap links-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!--Font Awesome-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
@@ -62,8 +214,8 @@
 			<!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
 			<nav id="navbar" class="navbar">
-				<ul>
-					<li><a class="nav-link scrolltoactive" href="#hero">Home</a></li>
+				<ul class="mr-auto">
+					<li><a class="nav-link" href="index.php">Home</a></li>
 					<li class="dropdown"><a href="#"><span>Vendors</span> <i class="bi bi-chevron-down"></i></a>
 						<ul>
 							<li><a href="vendor.php?id=DJs">DJs</a></li>
@@ -83,7 +235,7 @@
 							<li><a href="vendor.php?id=Cake">Cake</a></li>
 							<li><a href="vendor.php?id=Food">Food</a></li>
 							<li><a href='vendor.php?id=Videographers'>Videographers</a></li>
-							<li><a href="vendor.php?id=Dresses">Dresses and Suits</a></li>
+							<li><a href="vendor.php?id=Sewers">Sewers</a></li>
 							<!--li><a href='vendor.php?id=<?php echo $category; ?>'>Videographers</a></li-->
 							<li class="dropdown"><a href="#"><span>Venues</span><i class="bi bi-chevron-left"></i></a>
 								<ul>
@@ -101,22 +253,22 @@
 							<li><a href="vendors.php">More Vendors</a></li>
 						</ul>
 					</li>
-					<li><a class="nav-link scrollto" href="registry.php">Registry</a></li>
-					<li><a class="nav-link scrollto" href="about.php">About</a></li>
-					<li><a class="nav-link scrollto " href="">Portfolio</a></li>
-					<li><a class="nav-link scrollto" href="price.php">Pricing</a></li>
+					<li><a class="nav-link" href="registry.php">Registry</a></li>
+					<li><a class="nav-link" href="about.php">About</a></li>
+					<li><a class="nav-link" href="">Portfolio</a></li>
+					<li><a class="nav-link" href="price.php">Pricing</a></li>
 					<!--li><a class="nav-link scrollto" href="#team">Team</a></li-->
 
-					<li class="nav-link"><a href="signup.php"><span>Signup</span></a>
+					<li><a class="nav-link" href="signup.php"><span>Signup</span></a>
 
 					</li>
-					<li><a class="nav-link" href="login.php">Login</a></li>
+					<li><a class="nav-link active" href="login.php">Login</a></li>
 				</ul>
 				<i class="bi bi-list mobile-nav-toggle"></i>
 			</nav><!-- .navbar -->
 
 		</div>
-	</header><!-- End Header -->
+	</header>
 	<main>
 		<div class="section-title">
 			<span>Login</span>
@@ -125,27 +277,27 @@
 		<center>
 
 			<div class="container col-lg-8 col-md-8 col-sm-8 mt-3 mb-5 py-2 mx-auto" style="background-color: #c1828B" data-aos="fade-up">
-				<form method="POST" action="login.php" class="py-5 px-5">
+				<form method="POST" action="" class="py-5 px-5">
 
 
 					<div class="form-group col-lg-12 col-md-12 col-sm-12 mb-2">
 						<div class="input-group">
 							<div class="input-group-prepend">
-								<span class="input-group-text" id="basic-addon1"><i class="fas fa-mail-bulk"></i></span>
+								<span class="input-group-text px-4 bg-light border-right-0 border-md"><i class="fas fa-mail-bulk text-muted"></i></span>
 							</div>
-							<input type="text" class="form-control" name="email" placeholder="Enter Email Address" Required>
+							<input type="text" class="form-control  bg-light border-right-0 border-md" name="email" placeholder="Enter Email Address" Required>
 						</div>
 					</div>
 					<div class="form-group col-lg-12 col-md-12 col-sm-12 mb-2">
 						<div class="input-group">
 							<div class="input-group-prepend">
-								<span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+								<span class="input-group-text px-4 bg-light border-right-0 border-md"><i class="fas fa-key text-muted"></i></span>
 							</div>
-							<input type="passwprd" class="form-control" name="password" placeholder="Enter Password" Required>
+							<input type="password" class="form-control  bg-light border-left-0 border-md " name="password" placeholder="Enter Password" Required>
 						</div>
 
 
-						<center><button class="btn btn-primary btn-block" name="login" type="submit">Submit</button></center>
+						<center><button class="btn btn-primary btn-block mt-2" name="submit" type="submit">Submit</button></center>
 
 
 					</div>
@@ -240,8 +392,13 @@
 	<script src="assets/vendor/php-email-form/validate.js"></script>
 	<script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
+
 	<!-- Template Main JS File -->
 	<script src="assets/js/main.js"></script>
+	<!--Bootstrap scripts-->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </body>
 

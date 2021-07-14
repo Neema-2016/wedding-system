@@ -3,9 +3,22 @@ include 'include/config.php';
 $sqle=mysqli_query($conn,"SELECT * FROM vendors");
 if($sqle){
 	while($row = mysqli_fetch_assoc($sqle)){
-		$category=$row['vendor_category'];
-	}
+	   
+                   $values= $row['vendor_category'];
+
+                   $values_ar = explode(', ', $values);
+		         if (in_array("Djs", $values_ar)) {
+                   $category="DJs";
 }
+
+ }}
+//foreach ($row['vendor_category'] as $category)
+//{
+// print "$category";
+//}
+//
+//}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +34,9 @@ if($sqle){
 	<!-- Favicons -->
 	<link href="assets/black.png" rel="icon">
 	<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+	<!--Font Awesome cdn--->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -71,12 +87,13 @@ if($sqle){
 			<!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
 			<nav id="navbar" class="navbar">
-				<ul>
+				<ul class="mr-auto">
 					<li><a class="nav-link scrolltoactive" href="#hero">Home</a></li>
 					<li class="dropdown"><a href="#"><span>Vendors</span> <i class="bi bi-chevron-down"></i></a>
 						<ul>
 							<li><a href="vendor.php?id=DJs">DJs</a></li>
-							<li><a href="vendor.php?id=Bands">Bands</a>
+							<li><a href="vendor.php?id=Bands">Bands</a></li>
+							<li><a href="vendor.php?id=Orchestra">Orchestra</a></li>
 
 							<li><a href="vendor.php?id=Planners">Wedding Planners</a></li>
 							<li><a href="vendor.php?id=Florists">Florists</a></li>
@@ -89,10 +106,10 @@ if($sqle){
 								</ul>
 							</li>
 							<li><a href="vendor.php?id=Jewellers">Jewellers</a></li>
-							<li><a href="vendor.php?id=Cake">Cake</a></li>
-							<li><a href="vendor.php?id=Food">Food</a></li>
+							<li><a href="vendor.php?id=Bakers">Bakers</a></li>
+							<li><a href="vendor.php?id=Chefs">Chefs</a></li>
 							<li><a href='vendor.php?id=Videographers'>Videographers</a></li>
-							<li><a href="vendor.php?id=Dresses">Dresses and Suits</a></li>
+							<li><a href="vendor.php?id=Sewers">Sewers</a></li>
 							<!--li><a href='vendor.php?id=<?php echo $category; ?>'>Videographers</a></li-->
 							<li class="dropdown"><a href="#"><span>Venues</span><i class="bi bi-chevron-left"></i></a>
 								<ul>
@@ -107,21 +124,22 @@ if($sqle){
 
 
 
-							<li><a href="vendors.php">More Vendors</a></li>
+							<li><a href="searchvendor.php">Search for Vendors</a></li>
 						</ul>
 					</li>
-					<li><a class="nav-link scrollto" href="registry.php">Registry</a></li>
-					<li><a class="nav-link scrollto" href="about.php">About</a></li>
-					<li><a class="nav-link scrollto " href="">Portfolio</a></li>
+					
+					<!--<li><a class="nav-link scrollto" href="about.php">About</a></li>
+					<li><a class="nav-link scrollto " href="">Portfolio</a></li>-->
 					<li><a class="nav-link scrollto" href="price.php">Pricing</a></li>
 					<!--li><a class="nav-link scrollto" href="#team">Team</a></li-->
 
-					<li class="nav-link"><a href="signup.php"><span>Signup</span></a>
+					<li><a class="nav-link" href="signup.php"><span>Signup</span></a>
 
 					</li>
 					<li><a class="nav-link" href="login.php">Login</a></li>
+					<li><a class="nav-link" href="findcouple.php">Find Couple&nbsp;<i class="fas fa-search"></i></a> </li>
 				</ul>
-				<i class="bi bi-list mobile-nav-toggle"></i>
+
 			</nav><!-- .navbar -->
 
 		</div>
@@ -195,7 +213,7 @@ if($sqle){
 							<p>Eveything is better with Music.We will keep your guests dancing all through.</p>
 						</div>
 					</div>
-					<center><a class="btn mt-4" href="vendors.php" style="background: #cc1616; color: white;" data-aos="fade-up" data-aos-delay="820">View All Vendors</a></center>
+					<center><a class="btn mt-4" href="searchvendor.php" style="background: #cc1616; color: white;" data-aos="fade-up" data-aos-delay="820">Search For Vendors&nbsp;<i class="fas fa-search"></i></a></center>
 				</div>
 
 			</div>

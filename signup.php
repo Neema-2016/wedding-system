@@ -60,7 +60,6 @@
 			</div>
 		</div>
 	</section>
-
 	<!-- ======= Header ======= -->
 	<header id="header" class="d-flex align-items-center">
 		<div class="container d-flex align-items-center justify-content-between">
@@ -70,48 +69,52 @@
 			<!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
 			<nav id="navbar" class="navbar">
-				<ul>
+				<ul class="mr-auto">
 					<li><a class="nav-link" href="index.php">Home</a></li>
 					<li class="dropdown"><a href="#"><span>Vendors</span> <i class="bi bi-chevron-down"></i></a>
 						<ul>
-							<li><a href="#">DJs</a></li>
-							<li><a href="#">Bands</a>
+							<li><a href="vendor.php?id=DJs">DJs</a></li>
+							<li><a href="vendor.php?id=Bands">Bands</a>
 
-							<li><a href="#">Wedding Planners</a></li>
-							<li><a href="#">Florists</a></li>
-							<li class="dropdown"><a href="#"><span>Salons</span><i class="bi bi-chevron-right"></i></a>
+							<li><a href="vendor.php?id=Planners">Wedding Planners</a></li>
+							<li><a href="vendor.php?id=Florists">Florists</a></li>
+							<li class="dropdown"><a href="#"><span>
+										Salons</span><i class="bi bi-chevron-left"></i></a>
 								<ul>
-									<li><a href="#">Nail Salons</a></li>
-									<li><a href="#">Hair Salons</a></li>
-									<li><a href="#">Barber Shops</a></li>
+									<li><a href="vendor.php?id=NailSalons">Nail Salons</a></li>
+									<li><a href="vendor.php?id=HairSalons">Hair Salons</a></li>
+									<li><a href="vendor.php?id=Barbershops">Barber Shops</a></li>
 								</ul>
 							</li>
-							<li><a href="#">Jewellers</a></li>
-							<li><a href="#">Cake</a></li>
-							<li><a href='#'>Videographers</a></li>
-							<li><a href="#">Dresses and Suits</a></li>
-							<li><a href='#'>Videographers</a></li>
-							<li class="dropdown"><a href="#"><span>Venues</span><i class="bi bi-chevron-right"></i></a>
+							<li><a href="vendor.php?id=Jewellers">Jewellers</a></li>
+							<li><a href="vendor.php?id=Cake">Cake</a></li>
+							<li><a href="vendor.php?id=Food">Food</a></li>
+							<li><a href='vendor.php?id=Videographers'>Videographers</a></li>
+							<li><a href="vendor.php?id=Sewers">Sewers</a></li>
+							<!--li><a href='vendor.php?id=<?php echo $category; ?>'>Videographers</a></li-->
+							<li class="dropdown"><a href="#"><span>Venues</span><i class="bi bi-chevron-left"></i></a>
 								<ul>
-									<li><a href="#">Botanical Gardens</a></li>
-									<li><a href="#">Churches,Mosqus etc...</a></li>
-									<li><a href="#">Social Halls</a></li>
+									<li><a href="vendor.php?id=Gardens">Botanical Gardens</a></li>
+									<li><a href="vendor.php?id=Churches">Churches</a></li>
+									<li><a href="vendor.php?id=Mosques">Mosques</a></li>
+									<li><a href="vendor.php?id=Temples">Temples</a></li>
+									<li><a href="vendor.php?id=Halls">Social Halls</a></li>
 								</ul>
 							</li>
 
 
 
 
-							<li><a href="#">More Vendors</a></li>
+							<li><a href="vendors.php">More Vendors</a></li>
 						</ul>
 					</li>
-					<li><a class="nav-link scrollto" href="registry.php">Registry</a></li>
-					<li><a class="nav-link scrollto" href="">About</a></li>
-					<li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
-					<li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
-					<li><a class="nav-link scrollto" href="#team">Team</a></li>
+					<li><a class="nav-link" href="registry.php">Registry</a></li>
+					<li><a class="nav-link" href="about.php">About</a></li>
+					<li><a class="nav-link" href="">Portfolio</a></li>
+					<li><a class="nav-link" href="price.php">Pricing</a></li>
+					<!--li><a class="nav-link scrollto" href="#team">Team</a></li-->
 
-					<li class="nav-link active"><a href="signup.php"><span>Signup</span></a>
+					<li><a class="nav-link active" href="signup.php"><span>Signup</span></a>
 
 					</li>
 					<li><a class="nav-link" href="login.php">Login</a></li>
@@ -120,7 +123,7 @@
 			</nav><!-- .navbar -->
 
 		</div>
-	</header><!-- End Header -->
+	</header>
 	<!--Main--->
 	<main>
 		<div class="section-title">
