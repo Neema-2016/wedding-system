@@ -41,7 +41,7 @@ if(isset($_POST['add'])){
 	
 	
 	
-	$query=mysqli_query($conn,"iNSERT INTO vendors (vendor_name,vendor_phone,vendor_phone1,vendor_email,vendor_location,vendor_box,vendor_description,vendor_facebook,vendor_twitter,vendor_images,vendor_linkedin,vendor_whatsapp,vendor_category,vendor_map,user) VALUES('$name','$phone','$phone1','$email','$location','$box','$brief','$facebook','$twitter','$image','$linkedin','$whatsapp','$chk','$vendor_map','$user')");
+	$query=mysqli_query($conn,"INSERT INTO vendors (vendor_name,vendor_phone,vendor_phone1,vendor_email,vendor_location,vendor_box,vendor_description,vendor_facebook,vendor_twitter,vendor_images,vendor_linkedin,vendor_whatsapp,vendor_category,vendor_map,user) VALUES('$name','$phone','$phone1','$email','$location','$box','$brief','$facebook','$twitter','$image','$linkedin','$whatsapp','$chk','$vendor_map','$user')");
 	
 	
 	// $query=mysqli_query($conn,"UPDATE vendors SET vendor_name='$name',vendor_phone='$phone',vendor_phone1='$phone1',vendor_location='$location',vendor_box='$box',vendor_email='$email',vendor_description='$brief',vendor_facebook='$facebook',vendor_twitter='$twitter',vendor_images='$image',vendor_linkedin='$linkedin',vendor_whatsapp='$whatsapp',vendor_category='$chk',vendor_map='$vendor_map'WHERE user='$user'");

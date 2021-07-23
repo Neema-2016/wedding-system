@@ -2,19 +2,14 @@
 session_start();
 include'include/config.php';
 if(isset($_POST['send'])){
-	$password_err='';
-	$email_err='';
-	$phone_err='';
-	$username_err= '';
-	$name=$_POST['individual_name'];
+
+	
 	$email=$_POST['individual_email'];
-	$phone=$_POST['individual_phone'];
-	$location=$_POST['individual_location'];
 	$password=$_POST['password'];
 	$confirmpassword=$_POST['password2'];
+	$username=$_POST['individual_name'];
 	
-	
-	
+
 	
 	//validate Email Adress
 	 if (empty($_POST["individual_email"])) {
@@ -25,67 +20,42 @@ if(isset($_POST['send'])){
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
       $email_err = "Invalid email format";
     }
-    $sql2=mysqli_query($conn,"SELECT * FROM users WHERE user_email ='$email' ");
+    $sql2=mysqli_query($conn,"SELECT * FROM users WHERE user_email='$email' ");
 		 if($sql2){
     $num_rows = mysqli_num_rows($sql2);
 					if($num_rows > 0){
-    $email_err ="An account has already been registered under this email adress";
+    $email_err ="A user account has already been registered with this email address.";
   }
   }
 	 }
+	
+	//validate Copule names
+	
+	
 
-	//Validate password
+ 
+	//validate password
 	if(empty($_POST['password'])){
 		$password_err='Enter a Password';
-	}elseif(strlen(trim($_POST["password"])) < 4){
+	}else{
+		if(strlen(trim($_POST["password"])) < 4){
 		$password_err='Your password should be more than 4 characters';
 	}elseif(($password)!=($confirmpassword)){
 		$password_err='Passwords do not Match';
 	}else{
 		$password=trim($_POST['password']);
 	} 
-	
-	
-	//validate Vendor Name
-	if(empty(trim($_POST["individual_name"]))){
-        $username_err = "Please enter a Name.";
-        
-    } elseif(strlen(trim($_POST["individual_name"])) < 0){
-        $username_err = "Enter a valid Name.";
-        
-    }
-	 
-    else{
-        // 
-		$sql=mysqli_query($conn,"SELECT * FROM individuals WHERE individual_name='$name'");
-		if($sql){
-		$numrows=mysqli_num_rows($sql);
-       if($numrows > 0){
-		    $username_err = "An account is already registered under that Name. Please choose a different name for unique identification.";
-	   }
-                
-               
-                   
-                } }
-           
-	//Validate Phone Number
-	$query=mysqli_query($conn,"SELECT * FROM users WHERE user_phone='$phone'");
-	if($query){
-		$numeralz=mysqli_num_rows($query);
-		if($numeralz > 0){
-			$phone_err ="This phone number has already been used to register an Account .Please use a different number.";
-		}
 	}
 	
-	
-	
-	
-	if((empty($email_err))&&(empty($username_err))&&(empty($phone_err))&&(empty($password_err))){
-	 
-	
-	$sql=mysqli_query($conn,"INSERT INTO individuals (individual_name,individual_email,individual_phone,individual_location) VALUES('$name','$email','$phone','$location')");
-		$sql2=mysqli_query($conn,"INSERT INTO users(user_name,user_email,user_phone,user_location,role,password) VALUES('$name','$email','$phone','$location','Individual','$password')");
-	if($sql && $sql2){
+	//v
+                 
+           
+	//
+	if(empty($email_err) && (empty($password_err))){
+		$sql=mysqli_query($conn,"INSERT INTO individuals (individual_name,individual_email,individual_phone,individual_location) VALUES('$name','$email','$phone','$location')");
+		$sql2=mysqli_query($conn,"INSERT into users (user_name,user_email,role,password) VALUES ('$username','$email','Individual','$password')");
+		echo "$sql2";
+	if($sql2){
 		
 	//Send Mail to verify Email Adress
 		/*
@@ -103,16 +73,20 @@ $y=mail($to,$email_subject,$email_body,$headers);*/
  echo '<script type="text/javascript">'; 
     echo 'alert("SignUp was succesful.");'; 
     echo '</script>';
+	header("Location:login.php");
 }
- else{
+ 
+	
+	}else{
+	
     
             
               echo '<script type="text/javascript">'; 
-    echo 'alert("An Error occured during submision: '."$username_err".' '."$email_err".' '."$phone_err".' '."$password_err".'");'; 
+    echo 'alert("An Error occured during submision: '."$phone_err".' '."$email_err".' '."$password_err".' '."$phone_err".'");'; 
     echo '</script>';       
 
-    }
-	
+   
+		
 	}
 }
 
@@ -132,7 +106,7 @@ $y=mail($to,$email_subject,$email_body,$headers);*/
 	<!-- Favicons -->
 	<link href="assets/img/favicon.png" rel="icon">
 	<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-	<!--Bootstrap links-->
+	<!--Bootstrap 4-->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<!-- Google Fonts -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -243,68 +217,56 @@ $y=mail($to,$email_subject,$email_body,$headers);*/
 		<div class="section-title">
 			<span>SIGNUP</span>
 			<h2>Individual Sign Up Form</h2>
-			<div class="col-md-4 col-lg-4 col-sm-6" style="color: red">
-
-
-			</div>
 		</div>
 		<center>
+
 			<div class="container col-lg-8 col-md-8 col-sm-8 mt-3 mb-5 py-2 mx-auto" style="background-color: #c1828B" data-aos="fade-up">
-				<form method="POST" class="py-5 px-5">
+				<form method="POST" action="signindividual.php" class="py-5 px-5">
 
-					<div class="form-group col-lg-12 col-md-12 col-sm-12 mb-2">
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text bg-white px-4 border-right-0 border-md"><i class="fas fa-user text-muted"></i></span>
-							</div>
-							<input type="text" class="form-control bg-white border-left-0 border-md" name="individual_name" placeholder="Enter  Name" Required>
-						</div>
-					</div>
-					<div class="form-group col-lg-12 col-md-12 col-sm-12 mb-2">
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text bg-white px-4 border-right-0 border-md"><i class="fas fa-mail-bulk text-muted"></i></span>
-							</div>
-							<input type="text" class="form-control bg-white border-left-0 border-md" name="individual_email" placeholder="Enter Email Adress" Required>
-						</div>
-					</div>
-					<!--TEMP TILL WE GET AN EMAIL ADRESS-->
-					<div class="form-group col-lg-12 col-md-12 col-sm-12 mb-2">
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text bg-white px-4 border-right-0 border-md"><i class="fas fa-key text-muted"></i></span>
-							</div>
-							<input type="password" class="form-control bg-white  border-left-0 border-md" name="password" placeholder="Enter Password" Required>
-						</div>
-					</div>
-					<div class="form-group col-lg-12 col-md-12 col-sm-12 mb-2">
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text bg-white px-4 border-right-0 border-md"><i class="fas fa-key text-muted"></i></span>
-							</div>
-							<input type="password" class="form-control bg-white  border-left-0 border-md" name="password2" placeholder="Confirm Password" Required>
-						</div>
-					</div>
-					<div class="form-group col-lg-12 col-md-12 col-sm-12 mb-2">
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text bg-white px-4 border-right-0 border-md"><i class="fas fa-map text-muted"></i></span>
-							</div>
-							<input type="text" class="form-control bg-white  border-left-0 border-md" name="individual_location" placeholder="Enter Location" Required>
-						</div>
-					</div>
-					<div class="form-group col-lg-12 col-md-12 col-sm-12 mb-2">
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text bg-white px-4 border-right-0 border-md"><i class="fas fa-phone text-muted"></i></span>
-							</div>
-							<input type="text" class="form-control bg-white border-left-0 border-md" name="individual_phone" placeholder="Enter Phone Number" Required>
-						</div>
-					</div>
 
-					<center><button class="btn btn-primary btn-block" name="send" type="submit">Submit</button></center>
+					<div class="row col-lg-12 col-md-12 col-sm-12 mb-2">
+
+						<div class="form-group col-lg-12 col-md-12 col-sm-12 mb-2">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text bg-white px-4 border-right-0 border-md"><i class="fas fa-file-signature "></i></span>
+								</div>
+								<input type="text" class="form-control bg-white border-left-0 border-md" name="individual_name" placeholder="Enter Username" Required>
+							</div>
+						</div>
+
+						<div class="form-group col-lg-12 col-md-12 col-sm-12 mb-2">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text bg-white px-4 border-right-0 border-md"><i class="fas fa-mail-bulk"></i></span>
+								</div>
+								<input type="text" class="form-control bg-white border-left-0 border-md" name="individual_email" placeholder="Enter Email Adress" Required>
+							</div>
+						</div>
+						<!--TEMP TILL WE GET AN EMAIL ADRESS-->
+						<div class="form-group col-lg-12 col-md-12 col-sm-12 mb-2">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text bg-white px-4 border-right-0 border-md"><i class="fas fa-key"></i></span>
+								</div>
+								<input type="password" class="form-control bg-white border-left-0 border-md" name="password" placeholder="Enter Password" Required>
+							</div>
+						</div>
+						<div class="form-group col-lg-12 col-md-12 col-sm-12 mb-2">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text px-4 bg-white border-right-0 border-md"><i class="fas fa-key"></i></span>
+								</div>
+								<input type="password" class="form-control bg-white border-left-0 border-md" name="password2" placeholder="Confirm Password" Required>
+							</div>
+						</div>
+					
+
+						<center><button class="btn btn-primary btn-block" name="send" type="submit">Submit</button></center>
+
+
+					</div>
 				</form>
-
 			</div>
 		</center>
 	</main>
@@ -400,10 +362,10 @@ $y=mail($to,$email_subject,$email_body,$headers);*/
 	<!-- Template Main JS File -->
 	<script src="assets/js/main.js"></script>
 	<!--Bootstrap scripts-->
-
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 </body>
 
 </html>

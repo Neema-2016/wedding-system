@@ -78,26 +78,26 @@ include('include/config.php');
         
         // validate password
         if(empty(trim($_POST["password"]))){
-        $password_err = "Please enter a password."; 
+        	$password_err = "Please enter a password."; 
         }
-         if (empty($_POST["email"])) {
-    $email_err = "Email is required";
-  } else{
+        if (empty($_POST["email"])) {
+    		$email_err = "Email is required";
+  		} else{
     // check if e-mail address is well-formed
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      $email_err = "Invalid email format";
-    }
-    $sql2=mysqli_query($conn,"SELECT * FROM users where user_email ='$email'");
-    $num_rows = mysqli_num_rows($sql2);
-					if($num_rows == 0 ){
-    $email_err ="Incorrect Email Adress";
-  }
-  $sql4=mysqli_query($conn,"SELECT * FROM users where  user_email='$email' AND password='$password'");
-  $number= mysqli_num_rows($sql4);
-  if($number == 0){
-      $password_err="Incorrect Password";
-  }
-  }
+    		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      		$email_err = "Invalid email format";
+    		}
+			$sql2=mysqli_query($conn,"SELECT * FROM users where user_email ='$email'");
+			$num_rows = mysqli_num_rows($sql2);
+			if($num_rows == 0 ){
+				$email_err ="Incorrect Email Adress";
+			}
+			$sql4=mysqli_query($conn,"SELECT * FROM users where  user_email='$email' AND password='$password'");
+			$number= mysqli_num_rows($sql4);
+			if($number == 0){
+				$password_err="Incorrect Password";
+			}
+  		}
   
         $sql="SELECT * FROM users WHERE user_email=? AND password=?";
         $stmt=$conn->prepare($sql);
@@ -116,31 +116,26 @@ include('include/config.php');
         session_write_close();
         
        
-               if($result->num_rows ==1 && $_SESSION['user_email']=="$email" && $_SESSION['password']=="$password" && $_SESSION['role']=='Admin'){
-                 header("location:admin.php?login=success");
+        if($result->num_rows ==1 && $_SESSION['user_email']=="$email" && $_SESSION['password']=="$password" && $_SESSION['role']=='Admin'){
+            header("location:admin.php?login=success");
         }
-   if($result->num_rows ==1 && $_SESSION['user_email']=="$email" && $_SESSION['password']=="$password" && $_SESSION['role']=='Individual'){
-
-                 header("location:user_account1.php?login=success");
-                
-	
+   		if($result->num_rows ==1 && $_SESSION['user_email']=="$email" && $_SESSION['password']=="$password" && $_SESSION['role']=='Individual'){
+			header("location:user_account2.php?login=success");
         }
 
-    if($result->num_rows ==1  && $_SESSION['user_email']=="$email" && $_SESSION['password']=="$password"  && $_SESSION['role']=='Vendor'){
-         header("location:user_account.php?login=success");
-       
-            }
-			if($result->num_rows ==1  && $_SESSION['user_email']=="$email" && $_SESSION['password']=="$password"  && $_SESSION['role']=='Couple'){
-
-         header("location:user_account1.php?login=success");
-       
-            }
-    else{
-        echo '<script type="text/javascript">'; 
-    echo 'alert("An Error occured during submission.'."$email_err".'  '."$password_err".' '."$expiration_err".'");'; 
-    //echo 'window.location = "#";';
-    echo '</script>'; 
-    }
+    	if($result->num_rows ==1  && $_SESSION['user_email']=="$email" && $_SESSION['password']=="$password"  && $_SESSION['role']=='Vendor'){
+         	header("location:user_account.php?login=success");
+       	}
+		if($result->num_rows ==1  && $_SESSION['user_email']=="$email" && $_SESSION['password']=="$password"  && $_SESSION['role']=='Couple'){
+			header("location:user_account1.php?login=success");
+       	}
+		   
+    	else{
+			echo '<script type="text/javascript">'; 
+			echo 'alert("An Error occured during submission.'."$email_err".'  '."$password_err".' '."$expiration_err".'");'; 
+			//echo 'window.location = "#";';
+			echo '</script>'; 
+		}
     }
 
 

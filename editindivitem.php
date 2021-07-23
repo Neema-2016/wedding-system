@@ -10,7 +10,7 @@ if(isset($_POST['submit'])){
 	$shops=mysqli_real_escape_string($conn,$_POST['gift_shops']);
 
 
-	$query=mysqli_query($conn,"UPDATE registry SET gift_name='$name', gift_category='$category',gift_shops='$shops' WHERE user='$user' AND id='$id'");
+	$query=mysqli_query($conn,"UPDATE registryindividual SET gift_name='$name', gift_category='$category',gift_shops='$shops' WHERE user='$user' AND id='$id'");
 	if($query){
 		   echo '<script type="text/javascript">'; 
     echo 'alert(" Registry Item Succesfully Updated");'; 
@@ -27,7 +27,7 @@ if(isset($_POST['submit'])){
 
 	if(isset($_POST['edit'])){
 			$image=$_FILES['image']['name'];
-	   $squery=mysqli_query($conn,"UPDATE registry SET gift_image ='$image' WHERE user='$user' AND id='$id'");
+	   $squery=mysqli_query($conn,"UPDATE registryindividual SET gift_image ='$image' WHERE user='$user' AND id='$id'");
 	   if($squery){
 	   	$r2=move_uploaded_file($_FILES['image']['tmp_name'],"images/gift_images/$image");
 	   }
@@ -137,7 +137,7 @@ if(isset($_POST['submit'])){
 	<div class="container">
 		<form method="POST" action="" class="mb-5" enctype="multipart/form-data">
 			<?php 
-$sql=mysqli_query($conn,"SELECT * FROM registry WHERE id='$id'");
+$sql=mysqli_query($conn,"SELECT * FROM registryindividual WHERE id='$id'");
 if($sql){
 	while($row =mysqli_fetch_assoc($sql)){
 		$category1=$row['gift_category'];

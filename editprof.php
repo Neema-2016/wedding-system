@@ -361,58 +361,54 @@ if($sq){
 									<input type="url" class="form-control bg-white border-left-0 border-md" value="<?php echo $whatsapp1; ?>" name="vendor_whatsapp" placeholder="Whatsapp">
 								</div>
 							</div>
-						<label class="text-muted fw-bold">Update cover image &nbsp;<em>(add any image that will attract users to your profile)</em></label>
+							<label class="text-muted fw-bold">Update cover image &nbsp;<em>(add any image that will attract users to your profile)</em></label>
 							<div class="input-group mb-2">
 
 								<div class="input-group-prepend">
 									<span class="input-group-text bg-white px-4 border-right-0 border-md"><i class="fas fa-images text-muted"></i></span>
 								</div>
-							<center><button  type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-dark btn-sm">Update Cover Image</button></center>
+								<center><button  type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-dark btn-sm">Update Cover Image</button></center>
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Update Image</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      	<form action="" method="post">
-
-							<div class="input-group mb-2">
-								<div class="input-group-prepend">
-									<span class="input-group-text bg-white px-4 border-right-0 border-md"><i class="fas fa-images "></i></span>
+									<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel">Update Image</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<form action="" method="post">
+													<div class="input-group mb-2">
+															<div class="input-group-prepend">
+																<span class="input-group-text bg-white px-4 border-right-0 border-md"><i class="fas fa-images "></i></span>
+															</div>
+															<input type="file" class="form-control bg-white border-left-0 border-md" name="vimage"> 
+													</div>
+												</form>
+									
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+												<button type="submit"  name="update" class="btn btn-primary btn-sm">Update Image</button>
+											</div>
+										</div>
+									</div>
 								</div>
-								<input type="file" class="form-control bg-white border-left-0 border-md" name="vimage"> 
-							</div>
-      	</form>
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
-        <button type="submit"  name="update" class="btn btn-primary btn-sm">Update Image</button>
-      </div>
-    </div>
-  </div>
-</div>
 								<img src="images/vendor_images/<?php echo $image1; ?>" class="mt-2" style="height: 10rem!important; width:100%;">
 							</div> 
 							<label class="text-muted fw-bold">Add Map</label>
-								<p class="fw-bold" style="font-family:fangsong;"><em>Get coordinates from&nbsp;<a href="https://www.google.com/maps/">here</a></em></p>
+							<p class="fw-bold" style="font-family:fangsong;"><em>Get coordinates from&nbsp;<a href="https://www.google.com/maps/">here</a></em></p>
 							<div class="form-row">
-							
-									<div class="form-group col-lg-6 col-md-6  input-group mb-2">
-
-								<div class="input-group-prepend">
-									<span class="input-group-text bg-white px-4 border-right-0 border-md"><i class="fas fa-map text-muted"></i></span>
+								<div class="form-group col-lg-6 col-md-6  input-group mb-2">
+									<div class="input-group-prepend">
+										<span class="input-group-text bg-white px-4 border-right-0 border-md"><i class="fas fa-map text-muted"></i></span>
+									</div>
+									<input type="text" class="form-control bg-white border-left-0 border-md" value="<?php echo $latitude1; ?>" name="latitude" placeholder="Enter Latitude">
 								</div>
-								<input type="text" class="form-control bg-white border-left-0 border-md" value="<?php echo $latitude1; ?>" name="latitude" placeholder="Enter Latitude">
-							</div>
 								<div class="form-group  col-lg-6 col-md-6  input-group mb-2">
-
-								<div class="input-group-prepend">
+									<div class="input-group-prepend">
 									<span class="input-group-text bg-white px-4 border-right-0 border-md"><i class="fas fa-map text-muted"></i></span>
 								</div>
 								<input type="text" class="form-control bg-white border-left-0 border-md" value="<?php echo $longitude1; ?>" name="longitude" placeholder="Enter Longitude">
@@ -423,7 +419,8 @@ if($sq){
 
 						</div>
 						<center>
-							<div class="mt-2 col-lg-6 col-md-6"><button type="submit" name="add" class="btn btn-primary btn-block">Edit</button></div>
+							<div class="mt-2 col-lg-6 col-md-6">
+								<button type="submit" name="add" class="btn btn-primary btn-block">Edit</button></div>
 						</center>
 					</div>
 				</form>

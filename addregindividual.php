@@ -11,7 +11,7 @@ if(isset($_POST['submit'])){
 	$image=$_FILES['image']['name'];
 
     //prevent resubmission
-    $check=mysqli_query($conn,"SELECT * FROM registry WHERE user='$user' AND gift_name='$name' AND gift_category='$category' AND gift_image='$image'");
+    $check=mysqli_query($conn,"SELECT * FROM registryindividual WHERE user='$user' AND gift_name='$name' AND gift_category='$category' AND gift_image='$image'");
     if($check){
     	$number=mysqli_num_rows($check);
     	if($number > 0){
@@ -20,7 +20,7 @@ if(isset($_POST['submit'])){
     }
     //-----------------------
     if(empty($checkErr)){
-		$query=mysqli_query($conn,"INSERT INTO registry (gift_name,gift_category,gift_shops,gift_image,user) VALUES ('$name','$category','$shops','$image','$user')");
+		$query=mysqli_query($conn,"INSERT INTO registryindividual (gift_name,gift_category,gift_shops,gift_image,user) VALUES ('$name','$category','$shops','$image','$user')");
 		
 		if($query){
 			$r3=move_uploaded_file($_FILES['image']['tmp_name'],"images/gift_images/$image"); 
@@ -125,10 +125,10 @@ if(isset($_POST['submit'])){
 			<!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 			<nav id="navbar" class="navbar">
 				<ul>
-					<li><a class="nav-link" href="user_account1.php">Home</a></li>
-					<li><a class="nav-link" href="addcouple.php">Add Couple Profile</a></li>
-					<li><a class="nav-link" href="editcoupleprof.php">Edit Profile</a></li>
-					<li><a class="nav-link" href="addreg.php"> Gift Registry</a></li>
+					<li><a class="nav-link" href="user_account2.php">Home</a></li>
+					<li><a class="nav-link" href="addindividual.php">Add Individual Profile</a></li>
+					<li><a class="nav-link" href="editindividualprof.php">Edit Profile</a></li>
+					<li><a class="nav-link" href="addregindividual.php"> Gift Registry</a></li>
 					<li><a class="nav-link" href="myvendors.php">My Vendors</a></li>
 					<li><a class="nav-link" href="logout.php">Log Out</a></li>
 				</ul>
@@ -170,7 +170,7 @@ if(isset($_POST['submit'])){
                                     
                                     $i=1;
                                         
-                                            $squery = mysqli_query($conn, "SELECT* from registry ORDER BY id DESC");
+                                            $squery = mysqli_query($conn, "SELECT* from registryindividual ORDER BY id DESC");
                                             while($row = mysqli_fetch_array($squery))
                                             {
                                               $identity=$row['id'];
@@ -188,7 +188,7 @@ if(isset($_POST['submit'])){
 
 													<!-- Button trigger modal -->
 
-													<a href="edititem.php?id=<?php echo $row['id']; ?>"class="btn btn-success">
+													<a href="editindivitem.php?id=<?php echo $row['id']; ?>"class="btn btn-success">
 														<i class="fas fa-user-edit"></i>
 													</a>
 
@@ -238,7 +238,7 @@ if(isset($_POST['submit'])){
 if(isset($_POST['delete'])){
 	echo $id;
 
-$sql32=mysqli_query($conn,"DELETE  FROM  registry WHERE id='$identity'");
+$sql32=mysqli_query($conn,"DELETE  FROM  registryindividual WHERE id='$identity'");
 if($sql32){
 	  echo '<script type="text/javascript">'; 
     echo 'alert("Item Succesfully Deleted");'; 

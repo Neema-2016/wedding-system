@@ -1,5 +1,7 @@
 <?php
+
 include 'include/config.php';
+
 $query=mysqli_query($conn,"SELECT * FROM couples");
 if($query){
 
@@ -200,7 +202,7 @@ if($query){
 		<div class="container">
 				<div class="row">
 					<?php
-while($row =mysqli_fetch_assoc($query)){
+while($row = mysqli_fetch_assoc($query)){
 		$spouse1=$row['spouse1_name'];
 		$spouse2=$row['spouse2_name'];
 		$image1=$row['spouse1_image'];
@@ -213,25 +215,25 @@ while($row =mysqli_fetch_assoc($query)){
 	
 ?>
 <a href="couple.php?id=<?php echo $coupleid; ?>">
-<div class="card col-lg-8 col-md-8 mx-auto mb-2 mt-2"  id="myTable" style="background:url('assets/img/floral.jpg');background-size:cover;" >
-	<div class="row mb-2 mt-2 mx-auto align-items-center">
-		<h4 style="font-family:fangsong;" class="text-center text-light fw-bold mt-2 mb-2"><em><?php echo $spouse1; ?>&nbsp;&&nbsp;<?php echo $spouse2; ?></em></h4>
-		<div class="col-lg-4 col-md-4 mt-2 mb-2">
-		<img src="images/couple_images/<?php echo $image1; ?>" class="mb-3" style="height: 13rem; width:100%;">
-	</div>
-	<div class="col-lg-4 col-md-6 mt-2 mb-2">
-		<img src="images/couple_images/<?php echo $image2; ?>" class="mb-3" style="height: 13rem; width:100%;">
+	<div class="card col-lg-8 col-md-8 mx-auto mb-2 mt-2"  id="myTable" style="background:url('assets/img/floral.jpg');background-size:cover;" >
+		<div class="row mb-2 mt-2 mx-auto align-items-center">
+			<h4 style="font-family:fangsong;" class="text-center text-light fw-bold mt-2 mb-2"><em><?php echo $spouse1; ?>&nbsp;&&nbsp;<?php echo $spouse2; ?></em></h4>
+			<div class="col-lg-4 col-md-4 mt-2 mb-2">
+				<img src="images/couple_images/<?php echo $image1; ?>" class="mb-3" style="height: 13rem; width:100%;">
+			</div>
+			<div class="col-lg-4 col-md-6 mt-2 mb-2">
+				<img src="images/couple_images/<?php echo $image2; ?>" class="mb-3" style="height: 13rem; width:100%;">
+			</div>
+			<div class="col-lg-4 col-md-4 mt-2 mb-2">
+				<ul style="list-style:none;">
+					<li class="text-light fw-bold"><i class="fas fa-map-marker text-white" style="color:black!important;"></i>Location:&nbsp;<?php echo $location; ?></li>
+					<li class="text-light fw-bold"><i class="fas fa-clipboard text-white" style="color:black!important;"></i>Event:&nbsp;<?php echo $name; ?>
+					<li class="text-light fw-bold"><i class="fas fa-calendar text-white" style="color:black!important;"></i>Date:&nbsp;<?php echo $date; ?> </li>
+					
+				</ul>
+			</div>
 		</div>
-		<div class="col-lg-4 col-md-4 mt-2 mb-2">
-			<ul style="list-style:none;">
-				<li class="text-light fw-bold"><i class="fas fa-map-marker" style="color:black!important;"></i>Location:&nbsp;<?php echo $location; ?></li>
-				<li class="text-light fw-bold"><i class="fas fa-clipboard" style="color:black!important;"></i>Event:&nbsp;<?php echo $name; ?>
-				<li class="text-light fw-bold"><i class="fas fa-calendar" style="color:black!important;"></i>Date:&nbsp;<?php echo $date; ?> </li>
-				
-			</ul>
 	</div>
-</div>
-</div>
 </a>
 </div>
 <?php }} ?>
